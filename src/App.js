@@ -1,33 +1,26 @@
+import { useState } from 'react';
 import Game from './components/game/Game';
 import Result from './components/result/Result';
 import './index.css';
-
-const questions = [{
-  title: 'React - это ... ?',
-  variants: ['библиотека', 'фреймворк', 'приложение'],
-  correct: 0,
-},
-{
-  title: 'Компонент - это ... ',
-  variants: ['приложение', 'часть приложения или страницы', 'то, что я не знаю что такое'],
-  correct: 1,
-},
-{
-  title: 'Что такое JSX?',
-  variants: [
-    'Это простой HTML',
-    'Это функция',
-    'Это тот же HTML, но с возможностью выполнять JS-код',
-  ],
-  correct: 2,
-},];
-
+import { questions } from './data'
 
 const App = () => {
+  const [step, setStep] = useState(0);
+
+  const question = questions[step];
+
+  const onClickVariant = (index) => {
+    console.log(step, index)
+    setStep(step + 1)
+  }
+
   return (
     <div className='App'>
-      <Game />
-      {/* <Result /> */}
+      {
+        step != questions.length ? <Game step={step} question={question} onClickVariant={onClickVariant} /> : <Result />
+      }
+
+
     </div>
   );
 };

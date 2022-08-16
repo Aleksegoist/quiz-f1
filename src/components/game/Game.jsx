@@ -1,18 +1,26 @@
 import React from 'react';
+import { questions } from '../../data';
 import style from './Game.module.css';
 
-const Game = () => {
+const Game = ({ question, onClickVariant, step }) => {
+  const percent = Math.round((step / questions.length) * 100);
+
   return (
     <div className='container'>
       <div className={style.game}>
         <div className={style.progress}>
-          <div style={{ width: '50%' }} className={style.progress_inner}></div>
+          <div
+            style={{ width: `${percent}%` }}
+            className={style.progress_inner}
+          ></div>
         </div>
-        <h1>What is bolid?</h1>
+        <h1>{question.title}</h1>
         <ul>
-          <li>This is ккккккк</li>
-          <li>This is уууууууу</li>
-          <li>This is 33333333</li>
+          {question.variants.map((text, index) => (
+            <li onClick={() => onClickVariant(index)} key={text}>
+              {text}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
